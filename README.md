@@ -1,4 +1,4 @@
-# 📋 Bewerbungstracker – 6 Monate Praktikum
+# 📋 Bewerbungstracker – 
 
 Eine einfache Windows-App zum Verwalten deiner Bewerbungen.  
 **Kein Visual Studio nötig!** Die App läuft auf jedem Windows-PC.
