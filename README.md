@@ -1,5 +1,4 @@
-# 📋 Bewerbungstracker 
-
+# 📋<img width="1229" height="808" alt="Bewerbungstracker png" src="https://github.com/user-attachments/assets/c32626db-9e84-4993-b9b4-804626cfc966" />
 Eine einfache Windows-App zum Verwalten deiner Bewerbungen.  
 **Kein Visual Studio nötig!** Die App läuft auf jedem Windows-PC.
 
@@ -151,3 +150,6 @@ Jetzt können andere die `.exe` herunterladen und einfach starten!
 
 
 **Sag mir Bescheid, wenn du  Hilfe bei einem Schritt brauchst!** 🚀
+
+<img width="1229" height="808" alt="Screenshot 2026-04-17 152905" src="https://github.com/user-attachments/assets/e8501356-c711-4748-b8d7-8e1e79e47013" />
+
