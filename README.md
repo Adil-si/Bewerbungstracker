@@ -103,7 +103,7 @@ C:\Benutzer\DEIN_NAME\Dokumente\Bewerbungstracker.json
 
 Falls du den Code selbst ändern willst:
 
-1. **Visual Studio 2022** installieren (Community Edition – kostenlos)
+1. **Visual Studio 2022-2026** installieren (Community Edition – kostenlos)
 2. Repository klonen:
    ```bash
    git clone https://github.com/DEIN_USERNAME/Bewerbungstracker.git
