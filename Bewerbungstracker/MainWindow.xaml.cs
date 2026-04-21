@@ -17,7 +17,6 @@ namespace Bewerbungstracker
         {
             InitializeComponent();
 
-            // Speicherort: Dokumente-Ordner
             string dokumente = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             speicherPfad = System.IO.Path.Combine(dokumente, "Bewerbungstracker.json");
 
@@ -46,6 +45,9 @@ namespace Bewerbungstracker
                     $"📅 Datum: {gefunden.Datum:dd.MM.yyyy}\n" +
                     $"🌐 Plattform: {gefunden.Plattform}\n" +
                     $"📊 Status: {gefunden.Status}\n" +
+                    $"👤 Ansprechpartner: {gefunden.Ansprechpartner}\n" +
+                    $"📞 Telefon: {gefunden.Telefon}\n" +
+                    $"🔗 Website: {gefunden.Website}\n" +
                     $"📍 Ort: {box}",
                     "Bereits beworben", MessageBoxButton.OK, MessageBoxImage.Warning);
                 txtStatus.Text = $"⚠️ {firma} ist bereits in der {box}";
@@ -63,9 +65,12 @@ namespace Bewerbungstracker
         private void BtnSpeichern_Click(object sender, RoutedEventArgs e)
         {
             string firma = txtFirma.Text.Trim();
-            string plattform = (cbPlattform.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "";
-            string status = (cbStatus.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "📧 Beworben";
+            string plattform = (cbPlattform.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "";
+            string status = (cbStatus.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "📧 Beworben";
             DateTime datum = dpDatum.SelectedDate ?? DateTime.Now;
+            string website = txtWebsite.Text.Trim();
+            string ansprechpartner = txtAnsprechpartner.Text.Trim();
+            string telefon = txtTelefon.Text.Trim();
 
             if (string.IsNullOrEmpty(firma))
             {
@@ -74,11 +79,9 @@ namespace Bewerbungstracker
                 return;
             }
 
-            // Prüfen ob Firma schon existiert
             if (alleBewerbungen.Any(b => b.Firma.Equals(firma, StringComparison.OrdinalIgnoreCase)))
             {
-                MessageBox.Show($"Die Firma '{firma}' ist bereits in deiner Liste!\n" +
-                    "Du kannst den Status ändern, indem du den Eintrag löschst und neu hinzufügst.",
+                MessageBox.Show($"Die Firma '{firma}' ist bereits in deiner Liste!",
                     "Bereits vorhanden", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
@@ -88,7 +91,10 @@ namespace Bewerbungstracker
                 Firma = firma,
                 Plattform = plattform,
                 Datum = datum,
-                Status = status
+                Status = status,
+                Website = website,
+                Ansprechpartner = ansprechpartner,
+                Telefon = telefon
             };
 
             alleBewerbungen.Add(neueBewerbung);
@@ -96,6 +102,9 @@ namespace Bewerbungstracker
             AktualisiereListen();
 
             txtFirma.Clear();
+            txtWebsite.Clear();
+            txtAnsprechpartner.Clear();
+            txtTelefon.Clear();
             txtStatus.Text = $"✅ {firma} wurde gespeichert! Status: {status}";
         }
 
@@ -104,7 +113,6 @@ namespace Bewerbungstracker
         {
             Bewerbung ausgewaehlt = null;
 
-            // Prüfen ob in aktiver Liste oder Absagen-Liste ausgewählt
             if (lstAktive.SelectedItem != null)
                 ausgewaehlt = (Bewerbung)lstAktive.SelectedItem;
             else if (lstAbsagen.SelectedItem != null)
@@ -129,7 +137,31 @@ namespace Bewerbungstracker
             }
         }
 
-        // Wenn in aktiver Liste etwas ausgewählt wird
+        // Doppelklick auf aktive Bewerbung öffnet die Website
+        private void LstAktive_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            if (lstAktive.SelectedItem != null)
+            {
+                var ausgewaehlt = (Bewerbung)lstAktive.SelectedItem;
+                if (!string.IsNullOrEmpty(ausgewaehlt.Website))
+                {
+                    try
+                    {
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = ausgewaehlt.Website,
+                            UseShellExecute = true
+                        });
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Website konnte nicht geöffnet werden:\n{ex.Message}", "Fehler",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+            }
+        }
+
         private void LstAktive_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lstAktive.SelectedItem != null)
@@ -140,16 +172,13 @@ namespace Bewerbungstracker
             }
         }
 
-        // Listen aktualisieren (aktive oben / Absagen unten)
         private void AktualisiereListen()
         {
-            // Aktive Bewerbungen (alles außer Absage)
             var aktive = alleBewerbungen
                 .Where(b => !b.Status.Contains("Absage"))
                 .OrderByDescending(b => b.Datum)
                 .ToList();
 
-            // Absagen
             var absagen = alleBewerbungen
                 .Where(b => b.Status.Contains("Absage"))
                 .OrderByDescending(b => b.Datum)
@@ -161,7 +190,6 @@ namespace Bewerbungstracker
             txtStatus.Text = $"📊 {aktive.Count} aktive Bewerbungen | {absagen.Count} Absagen";
         }
 
-        // Speichern in JSON-Datei
         private void SpeichereDaten()
         {
             try
@@ -177,7 +205,6 @@ namespace Bewerbungstracker
             }
         }
 
-        // Laden aus JSON-Datei
         private void LadeDaten()
         {
             try
@@ -195,6 +222,24 @@ namespace Bewerbungstracker
                 alleBewerbungen = new List<Bewerbung>();
             }
         }
+        // Öffnet Links im Standard-Browser
+        private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = e.Uri.AbsoluteUri,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Link konnte nicht geöffnet werden:\n{ex.Message}", "Fehler",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            e.Handled = true;
+        }
     }
 
     // Datenmodell für eine Bewerbung
@@ -204,8 +249,10 @@ namespace Bewerbungstracker
         public string Plattform { get; set; } = "";
         public DateTime Datum { get; set; }
         public string Status { get; set; } = "";
+        public string Website { get; set; } = "";
+        public string Ansprechpartner { get; set; } = "";
+        public string Telefon { get; set; } = "";
 
-        // Für die Anzeige in der ListBox
-        public string DisplayText => $"{Datum:dd.MM.yyyy}  |  {Firma}  |  {Plattform}  |  {Status}";
+        public string DisplayText => $"{Datum:dd.MM.yyyy}  |  {Firma}  |  {Plattform}  |  {Status} | {Ansprechpartner}";
     }
 }
