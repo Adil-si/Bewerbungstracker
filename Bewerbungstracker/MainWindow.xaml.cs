@@ -137,6 +137,40 @@ namespace Bewerbungstracker
             }
         }
 
+        // BUTTON: Bearbeiten
+        private void BtnBearbeiten_Click(object sender, RoutedEventArgs e)
+        {
+            Bewerbung ausgewaehlt = null;
+
+            if (lstAktive.SelectedItem != null)
+                ausgewaehlt = (Bewerbung)lstAktive.SelectedItem;
+            else if (lstAbsagen.SelectedItem != null)
+                ausgewaehlt = (Bewerbung)lstAbsagen.SelectedItem;
+
+            if (ausgewaehlt == null)
+            {
+                MessageBox.Show("Bitte wähle zuerst eine Bewerbung aus!", "Bearbeiten",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var dialog = new BearbeitungsDialog(ausgewaehlt);
+            if (dialog.ShowDialog() == true)
+            {
+                ausgewaehlt.Firma = dialog.BearbeiteteBewerbung.Firma;
+                ausgewaehlt.Plattform = dialog.BearbeiteteBewerbung.Plattform;
+                ausgewaehlt.Datum = dialog.BearbeiteteBewerbung.Datum;
+                ausgewaehlt.Status = dialog.BearbeiteteBewerbung.Status;
+                ausgewaehlt.Website = dialog.BearbeiteteBewerbung.Website;
+                ausgewaehlt.Ansprechpartner = dialog.BearbeiteteBewerbung.Ansprechpartner;
+                ausgewaehlt.Telefon = dialog.BearbeiteteBewerbung.Telefon;
+
+                SpeichereDaten();
+                AktualisiereListen();
+                txtStatus.Text = $"✅ {ausgewaehlt.Firma} wurde aktualisiert!";
+            }
+        }
+
         // Doppelklick auf aktive Bewerbung öffnet die Website
         private void LstAktive_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
@@ -162,16 +196,41 @@ namespace Bewerbungstracker
             }
         }
 
+        // Auswahl in aktiver Liste
         private void LstAktive_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lstAktive.SelectedItem != null)
             {
                 var ausgewaehlt = (Bewerbung)lstAktive.SelectedItem;
                 txtStatus.Text = $"Ausgewählt: {ausgewaehlt.Firma} - Status: {ausgewaehlt.Status}";
+                btnBearbeiten.Visibility = Visibility.Visible;
                 btnLoeschen.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnBearbeiten.Visibility = Visibility.Collapsed;
+                btnLoeschen.Visibility = Visibility.Collapsed;
             }
         }
 
+        // Auswahl in Absagen-Liste
+        private void LstAbsagen_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (lstAbsagen.SelectedItem != null)
+            {
+                var ausgewaehlt = (Bewerbung)lstAbsagen.SelectedItem;
+                txtStatus.Text = $"Ausgewählt: {ausgewaehlt.Firma} - Status: {ausgewaehlt.Status}";
+                btnBearbeiten.Visibility = Visibility.Visible;
+                btnLoeschen.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                btnBearbeiten.Visibility = Visibility.Collapsed;
+                btnLoeschen.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        // Listen aktualisieren
         private void AktualisiereListen()
         {
             var aktive = alleBewerbungen
@@ -190,6 +249,7 @@ namespace Bewerbungstracker
             txtStatus.Text = $"📊 {aktive.Count} aktive Bewerbungen | {absagen.Count} Absagen";
         }
 
+        // Speichern in JSON-Datei
         private void SpeichereDaten()
         {
             try
@@ -205,6 +265,7 @@ namespace Bewerbungstracker
             }
         }
 
+        // Laden aus JSON-Datei
         private void LadeDaten()
         {
             try
@@ -222,6 +283,7 @@ namespace Bewerbungstracker
                 alleBewerbungen = new List<Bewerbung>();
             }
         }
+
         // Öffnet Links im Standard-Browser
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
