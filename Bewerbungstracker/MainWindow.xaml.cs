@@ -24,7 +24,6 @@ namespace Bewerbungstracker
             AktualisiereListen();
         }
 
-        // BUTTON: Firma prüfen
         private void BtnPruefen_Click(object sender, RoutedEventArgs e)
         {
             string firma = txtFirma.Text.Trim();
@@ -62,7 +61,6 @@ namespace Bewerbungstracker
             }
         }
 
-        // BUTTON: Bewerbung speichern
         private void BtnSpeichern_Click(object sender, RoutedEventArgs e)
         {
             string firma = txtFirma.Text.Trim();
@@ -112,7 +110,6 @@ namespace Bewerbungstracker
             txtStatus.Text = $"✅ {firma} wurde gespeichert! Status: {status}";
         }
 
-        // BUTTON: Löschen
         private void BtnLoeschen_Click(object sender, RoutedEventArgs e)
         {
             Bewerbung ausgewaehlt = null;
@@ -141,7 +138,6 @@ namespace Bewerbungstracker
             }
         }
 
-        // BUTTON: Bearbeiten
         private void BtnBearbeiten_Click(object sender, RoutedEventArgs e)
         {
             Bewerbung ausgewaehlt = null;
@@ -176,7 +172,83 @@ namespace Bewerbungstracker
             }
         }
 
-        // Doppelklick auf aktive Bewerbung öffnet die Website
+        private void BtnFilterReset_Click(object sender, RoutedEventArgs e)
+        {
+            if (cbDatumFilter != null)
+                cbDatumFilter.SelectedIndex = 0;
+            if (cbStatusFilter != null)
+                cbStatusFilter.SelectedIndex = 0;
+            if (dpBestimmtesDatum != null)
+                dpBestimmtesDatum.SelectedDate = null;
+            Filter_Changed(null, null);
+        }
+
+        private void Filter_Changed(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbDatumFilter == null || cbStatusFilter == null || lstAktive == null)
+                return;
+
+            var alleAktiven = alleBewerbungen
+                .Where(b => !b.Status.Contains("Absage"))
+                .OrderByDescending(b => b.Datum)
+                .ToList();
+
+            DateTime? bestimmtesDatum = dpBestimmtesDatum?.SelectedDate;
+
+            List<Bewerbung> nachDatumGefiltert;
+
+            if (bestimmtesDatum.HasValue)
+            {
+                nachDatumGefiltert = alleAktiven
+                    .Where(b => b.Datum.Date == bestimmtesDatum.Value.Date)
+                    .ToList();
+            }
+            else
+            {
+                string datumFilter = (cbDatumFilter.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Alle";
+                DateTime heute = DateTime.Now.Date;
+                DateTime filterDatum = heute;
+
+                switch (datumFilter)
+                {
+                    case "Letzte 7 Tage":
+                        filterDatum = heute.AddDays(-7);
+                        break;
+                    case "Letzte 30 Tage":
+                        filterDatum = heute.AddDays(-30);
+                        break;
+                    case "Letzte 90 Tage":
+                        filterDatum = heute.AddDays(-90);
+                        break;
+                    case "Letztes Jahr":
+                        filterDatum = heute.AddYears(-1);
+                        break;
+                    default:
+                        filterDatum = DateTime.MinValue;
+                        break;
+                }
+
+                nachDatumGefiltert = alleAktiven;
+                if (filterDatum != DateTime.MinValue)
+                {
+                    nachDatumGefiltert = alleAktiven.Where(b => b.Datum.Date >= filterDatum).ToList();
+                }
+            }
+
+            string statusFilter = (cbStatusFilter.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Alle Status";
+
+            var gefiltert = nachDatumGefiltert;
+            if (statusFilter != "Alle Status")
+            {
+                gefiltert = nachDatumGefiltert.Where(b => b.Status == statusFilter).ToList();
+            }
+
+            lstAktive.ItemsSource = gefiltert;
+
+            int absagenCount = alleBewerbungen.Count(b => b.Status.Contains("Absage"));
+            txtStatus.Text = $"📊 {gefiltert.Count} aktive Bewerbungen (gefiltert) | {absagenCount} Absagen | Gesamt: {alleBewerbungen.Count}";
+        }
+
         private void LstAktive_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (lstAktive.SelectedItem != null)
@@ -201,7 +273,6 @@ namespace Bewerbungstracker
             }
         }
 
-        // Auswahl in aktiver Liste
         private void LstAktive_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lstAktive.SelectedItem != null)
@@ -218,7 +289,6 @@ namespace Bewerbungstracker
             }
         }
 
-        // Auswahl in Absagen-Liste
         private void LstAbsagen_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (lstAbsagen.SelectedItem != null)
@@ -235,27 +305,17 @@ namespace Bewerbungstracker
             }
         }
 
-        // Listen aktualisieren
         private void AktualisiereListen()
         {
-            // Potenzielle Firmen werden auch in der aktiven Box angezeigt
-            var aktive = alleBewerbungen
-                .Where(b => !b.Status.Contains("Absage"))
-                .OrderByDescending(b => b.Datum)
-                .ToList();
-
             var absagen = alleBewerbungen
                 .Where(b => b.Status.Contains("Absage"))
                 .OrderByDescending(b => b.Datum)
                 .ToList();
 
-            lstAktive.ItemsSource = aktive;
             lstAbsagen.ItemsSource = absagen;
-
-            txtStatus.Text = $"📊 {aktive.Count} aktive Bewerbungen | {absagen.Count} Absagen";
+            Filter_Changed(null, null);
         }
 
-        // Speichern in JSON-Datei
         private void SpeichereDaten()
         {
             try
@@ -271,7 +331,6 @@ namespace Bewerbungstracker
             }
         }
 
-        // Laden aus JSON-Datei
         private void LadeDaten()
         {
             try
@@ -290,7 +349,6 @@ namespace Bewerbungstracker
             }
         }
 
-        // Öffnet Links im Standard-Browser
         private void Hyperlink_RequestNavigate(object sender, System.Windows.Navigation.RequestNavigateEventArgs e)
         {
             try
@@ -310,7 +368,6 @@ namespace Bewerbungstracker
         }
     }
 
-    // Datenmodell für eine Bewerbung
     public class Bewerbung
     {
         public string Firma { get; set; } = "";

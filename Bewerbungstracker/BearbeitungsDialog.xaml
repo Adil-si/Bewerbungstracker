@@ -25,11 +25,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- Firma -->
         <Label Grid.Row="0" Grid.Column="0" Content="Firma:" FontWeight="Bold"/>
         <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtFirma" Height="30" Margin="0,0,0,10"/>
 
-        <!-- Status (mit neuer Option) -->
         <Label Grid.Row="1" Grid.Column="0" Content="Status:" FontWeight="Bold"/>
         <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cbStatus" Height="30" Margin="0,0,0,10">
             <ComboBoxItem Content="📧 Beworben"/>
@@ -41,11 +39,9 @@
             <ComboBoxItem Content="📌 Potenzielle Firma für zukünftige Bewerbung"/>
         </ComboBox>
 
-        <!-- Adresse & PLZ -->
         <Label Grid.Row="2" Grid.Column="0" Content="Adresse &amp; PLZ:" FontWeight="Bold"/>
         <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtAdresse" Height="30" Margin="0,0,0,10"/>
 
-        <!-- Plattform -->
         <Label Grid.Row="3" Grid.Column="0" Content="Plattform:" FontWeight="Bold"/>
         <ComboBox Grid.Row="3" Grid.Column="1" x:Name="cbPlattform" Height="30" Margin="0,0,0,10">
             <ComboBoxItem Content="LinkedIn"/>
@@ -56,23 +52,18 @@
             <ComboBoxItem Content="Andere"/>
         </ComboBox>
 
-        <!-- Datum -->
         <Label Grid.Row="4" Grid.Column="0" Content="Datum:" FontWeight="Bold"/>
         <DatePicker Grid.Row="4" Grid.Column="1" x:Name="dpDatum" Height="30" Margin="0,0,0,10"/>
 
-        <!-- Website -->
         <Label Grid.Row="5" Grid.Column="0" Content="Website:" FontWeight="Bold"/>
         <TextBox Grid.Row="5" Grid.Column="1" x:Name="txtWebsite" Height="30" Margin="0,0,0,10"/>
 
-        <!-- Ansprechpartner -->
         <Label Grid.Row="6" Grid.Column="0" Content="Ansprechpartner:" FontWeight="Bold"/>
         <TextBox Grid.Row="6" Grid.Column="1" x:Name="txtAnsprechpartner" Height="30" Margin="0,0,0,10"/>
 
-        <!-- Telefon -->
         <Label Grid.Row="7" Grid.Column="0" Content="Telefon:" FontWeight="Bold"/>
         <TextBox Grid.Row="7" Grid.Column="1" x:Name="txtTelefon" Height="30" Margin="0,0,0,10"/>
 
-        <!-- Buttons -->
         <StackPanel Grid.Row="8" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
             <Button Content="💾 Speichern" Width="100" Height="35" Margin="5" Click="BtnSpeichern_Click"/>
             <Button Content="❌ Abbrechen" Width="100" Height="35" Margin="5" Click="BtnAbbrechen_Click"/>
