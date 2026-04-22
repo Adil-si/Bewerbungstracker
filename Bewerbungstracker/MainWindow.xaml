@@ -6,9 +6,9 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:Bewerbungstracker"
         mc:Ignorable="d"
-        Title="Bewerbungstracker - 6 Monate Praktikum" 
-        Height="700" Width="850"
-        MinHeight="550" MinWidth="650"
+        Title="Bewerbungstracker - Praktikum" 
+        Height="750" Width="900"
+        MinHeight="600" MinWidth="700"
         WindowStartupLocation="CenterScreen">
 
     <!-- ScrollViewer macht das ganze Fenster scrollbar -->
@@ -36,35 +36,53 @@
                 <StackPanel>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="140"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <!-- 0: Firma -->
                             <RowDefinition Height="Auto"/>
-                            <!-- 1: Plattform -->
+                            <!-- 1: Status -->
                             <RowDefinition Height="Auto"/>
-                            <!-- 2: Datum -->
+                            <!-- 2: Adresse & PLZ (neu) -->
                             <RowDefinition Height="Auto"/>
-                            <!-- 3: Status -->
+                            <!-- 3: Plattform -->
                             <RowDefinition Height="Auto"/>
-                            <!-- 4: Website -->
+                            <!-- 4: Datum -->
                             <RowDefinition Height="Auto"/>
-                            <!-- 5: Ansprechpartner -->
+                            <!-- 5: Website -->
                             <RowDefinition Height="Auto"/>
-                            <!-- 6: Telefon -->
+                            <!-- 6: Ansprechpartner -->
                             <RowDefinition Height="Auto"/>
-                            <!-- 7: Buttons -->
+                            <!-- 7: Telefon -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- 8: Buttons -->
                         </Grid.RowDefinitions>
 
                         <!-- Firma -->
                         <Label Grid.Row="0" Grid.Column="0" Content="Firma:" FontWeight="Bold"/>
                         <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtFirma" Height="30" Margin="0,0,0,10"/>
 
+                        <!-- Status (neu an Position 1) -->
+                        <Label Grid.Row="1" Grid.Column="0" Content="Status:" FontWeight="Bold"/>
+                        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cbStatus" Height="30" Margin="0,0,0,10">
+                            <ComboBoxItem Content="📧 Beworben"/>
+                            <ComboBoxItem Content="⏳ Warte auf Rückmeldung"/>
+                            <ComboBoxItem Content="📞 Telefonische Anfrage"/>
+                            <ComboBoxItem Content="✅ Einladung zum Gespräch"/>
+                            <ComboBoxItem Content="🎉 Zusage bekommen"/>
+                            <ComboBoxItem Content="❌ Absage"/>
+                        </ComboBox>
+
+                        <!-- Adresse & PLZ (neu - kein Pflichtfeld) -->
+                        <Label Grid.Row="2" Grid.Column="0" Content="Adresse &amp; PLZ:" FontWeight="Bold"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" x:Name="txtAdresse" Height="30" Margin="0,0,0,10" 
+                                 Text="" ToolTip="Optional - z.B. Musterstraße 123, 12345 Berlin"/>
+
                         <!-- Plattform -->
-                        <Label Grid.Row="1" Grid.Column="0" Content="Plattform:" FontWeight="Bold"/>
-                        <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cbPlattform" Height="30" Margin="0,0,0,10">
+                        <Label Grid.Row="3" Grid.Column="0" Content="Plattform:" FontWeight="Bold"/>
+                        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="cbPlattform" Height="30" Margin="0,0,0,10">
                             <ComboBoxItem Content="LinkedIn"/>
                             <ComboBoxItem Content="Indeed"/>
                             <ComboBoxItem Content="Xing"/>
@@ -74,34 +92,23 @@
                         </ComboBox>
 
                         <!-- Datum -->
-                        <Label Grid.Row="2" Grid.Column="0" Content="Datum:" FontWeight="Bold"/>
-                        <DatePicker Grid.Row="2" Grid.Column="1" x:Name="dpDatum" SelectedDate="2026-04-17" Margin="0,0,0,10"/>
-
-                        <!-- Status -->
-                        <Label Grid.Row="3" Grid.Column="0" Content="Status:" FontWeight="Bold"/>
-                        <ComboBox Grid.Row="3" Grid.Column="1" x:Name="cbStatus" Height="30" Margin="0,0,0,10">
-                            <ComboBoxItem Content="📧 Beworben"/>
-                            <ComboBoxItem Content="⏳ Warte auf Rückmeldung"/>
-                            <ComboBoxItem Content="📞 Telefonische Anfrage"/>
-                            <ComboBoxItem Content="✅ Einladung zum Gespräch"/>
-                            <ComboBoxItem Content="🎉 Zusage bekommen"/>
-                            <ComboBoxItem Content="❌ Absage"/>
-                        </ComboBox>
+                        <Label Grid.Row="4" Grid.Column="0" Content="Datum:" FontWeight="Bold"/>
+                        <DatePicker Grid.Row="4" Grid.Column="1" x:Name="dpDatum" SelectedDate="2026-04-17" Margin="0,0,0,10"/>
 
                         <!-- Firmen-Website -->
-                        <Label Grid.Row="4" Grid.Column="0" Content="Firmen-Website:" FontWeight="Bold"/>
-                        <TextBox Grid.Row="4" Grid.Column="1" x:Name="txtWebsite" Height="30" Margin="0,0,0,10"/>
+                        <Label Grid.Row="5" Grid.Column="0" Content="Firmen-Website:" FontWeight="Bold"/>
+                        <TextBox Grid.Row="5" Grid.Column="1" x:Name="txtWebsite" Height="30" Margin="0,0,0,10"/>
 
                         <!-- Ansprechpartner -->
-                        <Label Grid.Row="5" Grid.Column="0" Content="Ansprechpartner:" FontWeight="Bold"/>
-                        <TextBox Grid.Row="5" Grid.Column="1" x:Name="txtAnsprechpartner" Height="30" Margin="0,0,0,10"/>
+                        <Label Grid.Row="6" Grid.Column="0" Content="Ansprechpartner:" FontWeight="Bold"/>
+                        <TextBox Grid.Row="6" Grid.Column="1" x:Name="txtAnsprechpartner" Height="30" Margin="0,0,0,10"/>
 
                         <!-- Telefon -->
-                        <Label Grid.Row="6" Grid.Column="0" Content="Telefon:" FontWeight="Bold"/>
-                        <TextBox Grid.Row="6" Grid.Column="1" x:Name="txtTelefon" Height="30" Margin="0,0,0,10"/>
+                        <Label Grid.Row="7" Grid.Column="0" Content="Telefon:" FontWeight="Bold"/>
+                        <TextBox Grid.Row="7" Grid.Column="1" x:Name="txtTelefon" Height="30" Margin="0,0,0,10"/>
 
                         <!-- Buttons -->
-                        <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                        <StackPanel Grid.Row="8" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
                             <Button x:Name="btnPruefen" Content="🔍 Firma prüfen" Width="120" Height="35" Margin="5" Click="BtnPruefen_Click"/>
                             <Button x:Name="btnSpeichern" Content="💾 Bewerbung speichern" Width="140" Height="35" Margin="5" Click="BtnSpeichern_Click"/>
                         </StackPanel>
@@ -128,18 +135,19 @@
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </Trigger>
                                     <Trigger Property="ItemsControl.AlternationIndex" Value="0">
                                         <Setter Property="Background" Value="#FFFFFF"/>
                                     </Trigger>
                                     <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                                        <Setter Property="Background" Value="#F0F0F0"/>
+                                        <Setter Property="Background" Value="#F5F5F5"/>
                                     </Trigger>
                                     <Trigger Property="ItemsControl.AlternationIndex" Value="2">
-                                        <Setter Property="Background" Value="#E8E8E8"/>
-                                    </Trigger>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Background" Value="#4CAF50"/>
-                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="Background" Value="#FFFFFF"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -166,18 +174,19 @@
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
                                 <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="Foreground" Value="Black"/>
+                                    </Trigger>
                                     <Trigger Property="ItemsControl.AlternationIndex" Value="0">
                                         <Setter Property="Background" Value="#FFFFFF"/>
                                     </Trigger>
                                     <Trigger Property="ItemsControl.AlternationIndex" Value="1">
-                                        <Setter Property="Background" Value="#F0F0F0"/>
+                                        <Setter Property="Background" Value="#F5F5F5"/>
                                     </Trigger>
                                     <Trigger Property="ItemsControl.AlternationIndex" Value="2">
-                                        <Setter Property="Background" Value="#E8E8E8"/>
-                                    </Trigger>
-                                    <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Background" Value="#F44336"/>
-                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="Background" Value="#FFFFFF"/>
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>

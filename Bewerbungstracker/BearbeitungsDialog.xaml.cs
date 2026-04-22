@@ -13,9 +13,10 @@ namespace Bewerbungstracker
 
             // Daten in die Felder laden
             txtFirma.Text = zuBearbeiten.Firma;
+            cbStatus.Text = zuBearbeiten.Status;
+            txtAdresse.Text = zuBearbeiten.Adresse;
             cbPlattform.Text = zuBearbeiten.Plattform;
             dpDatum.SelectedDate = zuBearbeiten.Datum;
-            cbStatus.Text = zuBearbeiten.Status;
             txtWebsite.Text = zuBearbeiten.Website;
             txtAnsprechpartner.Text = zuBearbeiten.Ansprechpartner;
             txtTelefon.Text = zuBearbeiten.Telefon;
@@ -27,9 +28,10 @@ namespace Bewerbungstracker
             BearbeiteteBewerbung = new Bewerbung
             {
                 Firma = txtFirma.Text.Trim(),
+                Status = cbStatus.Text,
+                Adresse = txtAdresse.Text.Trim(),
                 Plattform = cbPlattform.Text,
                 Datum = dpDatum.SelectedDate ?? DateTime.Now,
-                Status = cbStatus.Text,
                 Website = txtWebsite.Text.Trim(),
                 Ansprechpartner = txtAnsprechpartner.Text.Trim(),
                 Telefon = txtTelefon.Text.Trim()

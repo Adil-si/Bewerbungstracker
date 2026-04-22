@@ -45,6 +45,7 @@ namespace Bewerbungstracker
                     $"📅 Datum: {gefunden.Datum:dd.MM.yyyy}\n" +
                     $"🌐 Plattform: {gefunden.Plattform}\n" +
                     $"📊 Status: {gefunden.Status}\n" +
+                    $"📍 Adresse: {gefunden.Adresse}\n" +
                     $"👤 Ansprechpartner: {gefunden.Ansprechpartner}\n" +
                     $"📞 Telefon: {gefunden.Telefon}\n" +
                     $"🔗 Website: {gefunden.Website}\n" +
@@ -65,8 +66,9 @@ namespace Bewerbungstracker
         private void BtnSpeichern_Click(object sender, RoutedEventArgs e)
         {
             string firma = txtFirma.Text.Trim();
-            string plattform = (cbPlattform.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "";
             string status = (cbStatus.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "📧 Beworben";
+            string adresse = txtAdresse.Text.Trim();
+            string plattform = (cbPlattform.SelectedItem as ComboBoxItem)?.Content?.ToString() ?? "";
             DateTime datum = dpDatum.SelectedDate ?? DateTime.Now;
             string website = txtWebsite.Text.Trim();
             string ansprechpartner = txtAnsprechpartner.Text.Trim();
@@ -89,9 +91,10 @@ namespace Bewerbungstracker
             Bewerbung neueBewerbung = new Bewerbung
             {
                 Firma = firma,
+                Status = status,
+                Adresse = adresse,
                 Plattform = plattform,
                 Datum = datum,
-                Status = status,
                 Website = website,
                 Ansprechpartner = ansprechpartner,
                 Telefon = telefon
@@ -102,6 +105,7 @@ namespace Bewerbungstracker
             AktualisiereListen();
 
             txtFirma.Clear();
+            txtAdresse.Clear();
             txtWebsite.Clear();
             txtAnsprechpartner.Clear();
             txtTelefon.Clear();
@@ -158,9 +162,10 @@ namespace Bewerbungstracker
             if (dialog.ShowDialog() == true)
             {
                 ausgewaehlt.Firma = dialog.BearbeiteteBewerbung.Firma;
+                ausgewaehlt.Status = dialog.BearbeiteteBewerbung.Status;
+                ausgewaehlt.Adresse = dialog.BearbeiteteBewerbung.Adresse;
                 ausgewaehlt.Plattform = dialog.BearbeiteteBewerbung.Plattform;
                 ausgewaehlt.Datum = dialog.BearbeiteteBewerbung.Datum;
-                ausgewaehlt.Status = dialog.BearbeiteteBewerbung.Status;
                 ausgewaehlt.Website = dialog.BearbeiteteBewerbung.Website;
                 ausgewaehlt.Ansprechpartner = dialog.BearbeiteteBewerbung.Ansprechpartner;
                 ausgewaehlt.Telefon = dialog.BearbeiteteBewerbung.Telefon;
@@ -308,9 +313,10 @@ namespace Bewerbungstracker
     public class Bewerbung
     {
         public string Firma { get; set; } = "";
+        public string Status { get; set; } = "";
+        public string Adresse { get; set; } = "";
         public string Plattform { get; set; } = "";
         public DateTime Datum { get; set; }
-        public string Status { get; set; } = "";
         public string Website { get; set; } = "";
         public string Ansprechpartner { get; set; } = "";
         public string Telefon { get; set; } = "";
