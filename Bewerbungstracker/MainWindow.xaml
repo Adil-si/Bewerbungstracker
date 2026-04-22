@@ -6,7 +6,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:Bewerbungstracker"
         mc:Ignorable="d"
-        Title="Bewerbungstracker - Praktikum" 
+        Title="SI Bewerbungstracker -Praktikum" 
         Height="750" Width="900"
         MinHeight="600" MinWidth="700"
         WindowStartupLocation="CenterScreen">
@@ -45,7 +45,7 @@
                             <RowDefinition Height="Auto"/>
                             <!-- 1: Status -->
                             <RowDefinition Height="Auto"/>
-                            <!-- 2: Adresse & PLZ (neu) -->
+                            <!-- 2: Adresse & PLZ -->
                             <RowDefinition Height="Auto"/>
                             <!-- 3: Plattform -->
                             <RowDefinition Height="Auto"/>
@@ -64,7 +64,7 @@
                         <Label Grid.Row="0" Grid.Column="0" Content="Firma:" FontWeight="Bold"/>
                         <TextBox Grid.Row="0" Grid.Column="1" x:Name="txtFirma" Height="30" Margin="0,0,0,10"/>
 
-                        <!-- Status (neu an Position 1) -->
+                        <!-- Status (neu mit "Potenzielle Firma") -->
                         <Label Grid.Row="1" Grid.Column="0" Content="Status:" FontWeight="Bold"/>
                         <ComboBox Grid.Row="1" Grid.Column="1" x:Name="cbStatus" Height="30" Margin="0,0,0,10">
                             <ComboBoxItem Content="📧 Beworben"/>
@@ -73,6 +73,7 @@
                             <ComboBoxItem Content="✅ Einladung zum Gespräch"/>
                             <ComboBoxItem Content="🎉 Zusage bekommen"/>
                             <ComboBoxItem Content="❌ Absage"/>
+                            <ComboBoxItem Content="📌 Potenzielle Firma für zukünftige Bewerbung"/>
                         </ComboBox>
 
                         <!-- Adresse & PLZ (neu - kein Pflichtfeld) -->

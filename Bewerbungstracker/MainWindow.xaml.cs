@@ -238,6 +238,7 @@ namespace Bewerbungstracker
         // Listen aktualisieren
         private void AktualisiereListen()
         {
+            // Potenzielle Firmen werden auch in der aktiven Box angezeigt
             var aktive = alleBewerbungen
                 .Where(b => !b.Status.Contains("Absage"))
                 .OrderByDescending(b => b.Datum)
