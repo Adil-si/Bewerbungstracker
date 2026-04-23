@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
+using System.Threading.Tasks;
 
 namespace Bewerbungstracker
 {
@@ -365,6 +366,43 @@ namespace Bewerbungstracker
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             e.Handled = true;
+        }
+        private async void txtFirma_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            string firma = txtFirma.Text.Trim();
+
+            if (string.IsNullOrEmpty(firma))
+            {
+                txtFirma.Background = System.Windows.Media.Brushes.White;
+                return;
+            }
+
+            bool existiert = alleBewerbungen.Any(b =>
+                b.Firma.Equals(firma, StringComparison.OrdinalIgnoreCase));
+
+            if (existiert)
+            {
+                txtFirma.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightCoral);
+
+                // ROTE MESSAGEBOX (Popup)
+                MessageBox.Show($"⚠️ VORSICHT!\n\nDie Firma '{firma}' ist bereits in deiner Liste!\n\n" +
+                    "Du hast dich dort schon beworben oder sie ist als potenziell markiert.",
+                    "Doppelte Bewerbung verhindern",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning);
+
+                txtFirma.Background = System.Windows.Media.Brushes.White;
+            }
+            else
+            {
+                txtFirma.Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Colors.LightGreen);
+                await Task.Delay(500);
+                txtFirma.Background = System.Windows.Media.Brushes.White;
+
+                txtStatus.Text = $"✅ '{firma}' ist verfügbar";
+                await Task.Delay(1500);
+                txtStatus.Text = "Bereit";
+            }
         }
     }
 
