@@ -23,6 +23,7 @@ namespace Bewerbungstracker
 
             LadeDaten();
             AktualisiereListen();
+            _ = PruefeAufUpdates();
         }
 
         private void BtnPruefen_Click(object sender, RoutedEventArgs e)
@@ -402,6 +403,45 @@ namespace Bewerbungstracker
                 txtStatus.Text = $"✅ '{firma}' ist verfügbar";
                 await Task.Delay(1500);
                 txtStatus.Text = "Bereit";
+            }
+        }
+        // In MainWindow.xaml.cs bei Programmstart
+        private async Task PruefeAufUpdates()
+        {
+            try
+            {
+                string aktuelleVersion = "1.0";
+                string githubVersion = await HoleLetzteVersionVonGitHub();
+
+                if (githubVersion != aktuelleVersion)
+                {
+                    var result = MessageBox.Show(
+                        $"Neue Version {githubVersion} verfügbar!\n\nMöchtest du zur Download-Seite gehen?",
+                        "Update verfügbar",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Question);
+
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        System.Diagnostics.Process.Start(
+                            "https://github.com/Adil-si/Bewerbungstracker/releases");
+                    }
+                }
+            }
+            catch { /* Kein Internet oder Fehler */ }
+        }
+
+        private async Task<string> HoleLetzteVersionVonGitHub()
+        {
+            using (var client = new System.Net.Http.HttpClient())
+            {
+                client.DefaultRequestHeaders.Add("User-Agent", "Bewerbungstracker");
+                var response = await client.GetStringAsync(
+                    "https://api.github.com/repos/Adil-si/Bewerbungstracker/releases/latest");
+
+                // Einfaches Parsen (mit JSON)
+                var json = System.Text.Json.JsonDocument.Parse(response);
+                return json.RootElement.GetProperty("tag_name").GetString();
             }
         }
     }
