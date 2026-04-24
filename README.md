@@ -152,5 +152,5 @@ Jetzt können andere die `.exe` herunterladen und einfach starten!
 
 **Sag mir Bescheid, wenn du  Hilfe bei einem Schritt brauchst!** 🚀
 
-<img width="1229" height="808" alt="Screenshot 2026-04-17 152905" src="https://github.com/user-attachments/assets/e8501356-c711-4748-b8d7-8e1e79e47013" />
+<img width="1229" height="808" alt="Screenshot 2026-04-24 082712" src="https://github.com/user-attachments/assets/e8501356-c711-4748-b8d7-8e1e79e47013" />
 
