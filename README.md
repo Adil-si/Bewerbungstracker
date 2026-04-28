@@ -126,8 +126,8 @@ Damit andere die `.exe` ohne Visual Studio starten können, musst du ein **Relea
    - Gehe zu deinem Repository
    - Klicke rechts auf **Releases**
    - **Create a new release**
-   - **Tag version:** `v1.0`
-   - **Title:** `Bewerbungstracker v1.0`
+   - **Tag version:** `v1.5`
+   - **Title:** `Bewerbungstracker v1.5`
    - **Attach binaries:** Ziehe den gesamten `publish`-Ordner per Drag & Drop rein (oder als ZIP)
    - **Publish release** klicken
 
@@ -152,5 +152,6 @@ Jetzt können andere die `.exe` herunterladen und einfach starten!
 
 **Sag mir Bescheid, wenn du  Hilfe bei einem Schritt brauchst!** 🚀
 
-<img width="1229" height="808" alt="Screenshot 2026-04-24 082712" src="https://github.com/user-attachments/assets/e8501356-c711-4748-b8d7-8e1e79e47013" />
+
+<img width="1871" height="1022" alt="Screenshot 2026-04-28 152656" src="https://github.com/user-attachments/assets/15d95af6-3471-4b91-b570-559148174a94" />
 
