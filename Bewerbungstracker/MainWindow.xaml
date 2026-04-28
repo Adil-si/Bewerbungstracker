@@ -78,6 +78,7 @@
                             <ComboBoxItem Content="🎉 Zusage bekommen"/>
                             <ComboBoxItem Content="❌ Absage"/>
                             <ComboBoxItem Content="📌 Potenzielle Firma für zukünftige Bewerbung"/>
+                            <ComboBoxItem Content="❌ Absage meine Seite (selbst zurückgezogen)"/>
                         </ComboBox>
 
                         <!-- Adresse & PLZ -->
@@ -179,14 +180,17 @@
                     <TextBlock Grid.Row="0" Text="📋 AKTIVE BEWERBUNGEN (offen / warte / Gespräch / Zusage)" FontWeight="Bold" FontSize="14" Margin="5" Foreground="DarkGreen"/>
 
                     <ListBox Grid.Row="1" x:Name="lstAktive" 
-                             AlternationCount="3"
-                             MaxHeight="250" 
-                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             DisplayMemberPath="DisplayText" 
-                             SelectionChanged="LstAktive_SelectionChanged" 
-                             MouseDoubleClick="LstAktive_MouseDoubleClick">
+         AlternationCount="3"
+         MaxHeight="250" 
+         ScrollViewer.VerticalScrollBarVisibility="Auto"
+         DisplayMemberPath="DisplayText" 
+         SelectionChanged="LstAktive_SelectionChanged" 
+         MouseDoubleClick="LstAktive_MouseDoubleClick"
+         MouseEnter="LstAktive_MouseEnter"
+         MouseLeave="LstAktive_MouseLeave">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
+                                <Setter Property="ToolTip" Value="{Binding TooltipText}"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter Property="FontWeight" Value="Bold"/>
@@ -219,13 +223,14 @@
                     <TextBlock Grid.Row="0" Text="❌ ABSAGEN (nicht gelöscht - nur archiviert)" FontWeight="Bold" FontSize="14" Margin="5" Foreground="DarkRed"/>
 
                     <ListBox Grid.Row="1" x:Name="lstAbsagen" 
-                             AlternationCount="3"
-                             MaxHeight="150" 
-                             ScrollViewer.VerticalScrollBarVisibility="Auto"
-                             DisplayMemberPath="DisplayText"
-                             SelectionChanged="LstAbsagen_SelectionChanged">
+         AlternationCount="3"
+         MaxHeight="150" 
+         ScrollViewer.VerticalScrollBarVisibility="Auto"
+         DisplayMemberPath="DisplayText"
+         SelectionChanged="LstAbsagen_SelectionChanged">
                         <ListBox.ItemContainerStyle>
                             <Style TargetType="ListBoxItem">
+                                <Setter Property="ToolTip" Value="{Binding TooltipText}"/>
                                 <Style.Triggers>
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter Property="FontWeight" Value="Bold"/>

@@ -191,9 +191,9 @@ namespace Bewerbungstracker
                 return;
 
             var alleAktiven = alleBewerbungen
-                .Where(b => !b.Status.Contains("Absage"))
-                .OrderByDescending(b => b.Datum)
-                .ToList();
+    .Where(b => !b.Status.Contains("Absage") && !b.Status.Contains("selbst zurückgezogen"))
+    .OrderByDescending(b => b.Datum)
+    .ToList();
 
             DateTime? bestimmtesDatum = dpBestimmtesDatum?.SelectedDate;
 
@@ -309,8 +309,9 @@ namespace Bewerbungstracker
 
         private void AktualisiereListen()
         {
+            // Alle Absagen (inkl. der neuen "Absage meine Seite")
             var absagen = alleBewerbungen
-                .Where(b => b.Status.Contains("Absage"))
+                .Where(b => b.Status.Contains("Absage") || b.Status.Contains("selbst zurückgezogen"))
                 .OrderByDescending(b => b.Datum)
                 .ToList();
 
@@ -444,6 +445,20 @@ namespace Bewerbungstracker
                 return json.RootElement.GetProperty("tag_name").GetString();
             }
         }
+        private void LstAktive_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            if (lstAktive.SelectedItem != null)
+            {
+                var item = (Bewerbung)lstAktive.SelectedItem;
+                txtStatus.Text = $"ℹ️ {item.Firma} - {item.Status} - {item.Plattform}";
+            }
+        }
+
+        private void LstAktive_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+        {
+            txtStatus.Text = "Bereit";
+        }
+
     }
 
     public class Bewerbung
@@ -458,5 +473,21 @@ namespace Bewerbungstracker
         public string Telefon { get; set; } = "";
 
         public string DisplayText => $"{Datum:dd.MM.yyyy}  |  {Firma}  |  {Plattform}  |  {Status} | {Ansprechpartner}";
+
+        // Tooltip für Mouseover - zeigt ALLE Infos
+        public string TooltipText
+        {
+            get
+            {
+                return $"📌 FIRMA: {Firma}\n" +
+                       $"📅 Datum: {Datum:dd.MM.yyyy}\n" +
+                       $"📊 Status: {Status}\n" +
+                       $"🌐 Plattform: {Plattform}\n" +
+                       $"📍 Adresse: {(string.IsNullOrEmpty(Adresse) ? "—" : Adresse)}\n" +
+                       $"👤 Ansprechpartner: {(string.IsNullOrEmpty(Ansprechpartner) ? "—" : Ansprechpartner)}\n" +
+                       $"📞 Telefon: {(string.IsNullOrEmpty(Telefon) ? "—" : Telefon)}\n" +
+                       $"🔗 Website: {(string.IsNullOrEmpty(Website) ? "—" : Website)}";
+            }
+        }
     }
 }

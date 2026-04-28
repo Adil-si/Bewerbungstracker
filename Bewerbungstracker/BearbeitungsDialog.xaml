@@ -37,6 +37,7 @@
             <ComboBoxItem Content="🎉 Zusage bekommen"/>
             <ComboBoxItem Content="❌ Absage"/>
             <ComboBoxItem Content="📌 Potenzielle Firma für zukünftige Bewerbung"/>
+            <ComboBoxItem Content="❌ Absage meine Seite (selbst zurückgezogen)"/>
         </ComboBox>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Adresse &amp; PLZ:" FontWeight="Bold"/>
