@@ -73,6 +73,7 @@ namespace Bewerbungstracker
             string website = txtWebsite.Text.Trim();
             string ansprechpartner = txtAnsprechpartner.Text.Trim();
             string telefon = txtTelefon.Text.Trim();
+            string kommentar = txtKommentar.Text.Trim();  // NEU
 
             if (string.IsNullOrEmpty(firma))
             {
@@ -97,7 +98,8 @@ namespace Bewerbungstracker
                 Datum = datum,
                 Website = website,
                 Ansprechpartner = ansprechpartner,
-                Telefon = telefon
+                Telefon = telefon,
+                Kommentar = kommentar  
             };
 
             alleBewerbungen.Add(neueBewerbung);
@@ -109,6 +111,7 @@ namespace Bewerbungstracker
             txtWebsite.Clear();
             txtAnsprechpartner.Clear();
             txtTelefon.Clear();
+            txtKommentar.Clear();  
             txtStatus.Text = $"✅ {firma} wurde gespeichert! Status: {status}";
         }
 
@@ -471,10 +474,10 @@ namespace Bewerbungstracker
         public string Website { get; set; } = "";
         public string Ansprechpartner { get; set; } = "";
         public string Telefon { get; set; } = "";
+        public string Kommentar { get; set; } = "";  
 
         public string DisplayText => $"{Datum:dd.MM.yyyy}  |  {Firma}  |  {Plattform}  |  {Status} | {Ansprechpartner}";
 
-        // Tooltip für Mouseover - zeigt ALLE Infos
         public string TooltipText
         {
             get
@@ -486,6 +489,7 @@ namespace Bewerbungstracker
                        $"📍 Adresse: {(string.IsNullOrEmpty(Adresse) ? "—" : Adresse)}\n" +
                        $"👤 Ansprechpartner: {(string.IsNullOrEmpty(Ansprechpartner) ? "—" : Ansprechpartner)}\n" +
                        $"📞 Telefon: {(string.IsNullOrEmpty(Telefon) ? "—" : Telefon)}\n" +
+                       $"💬 Kommentar: {(string.IsNullOrEmpty(Kommentar) ? "—" : Kommentar)}\n" +
                        $"🔗 Website: {(string.IsNullOrEmpty(Website) ? "—" : Website)}";
             }
         }
