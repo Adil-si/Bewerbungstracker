@@ -147,7 +147,66 @@ Jetzt können andere die `.exe` herunterladen und einfach starten!
 | Fehler lösen | "Fehlerbehebung" |
 
 ---
+## 📂 Unternehmensliste für Anwendungsentwickler – zum direkten Bewerben
 
+Im Repository findest du eine **fertig zusammengestellte Liste** von Unternehmen, die für Umschüler und Quereinsteiger im Bereich **Anwendungsentwicklung** relevant sind.
+
+**📁 Datei:**  
+[`data/potenzielle_arbeitgeber.json`](https://github.com/Adil-si/Bewerbungstracker/blob/main/data/potenzielle_arbeitgeber.json)
+
+### 🎯 Was die Liste bietet:
+
+| Vorteil | Beschreibung |
+|---------|--------------|
+| ✅ **Fertig recherchiert** | Unternehmen aus der Region Düsseldorf, Solingen, Wuppertal, Köln und Umgebung |
+| ✅ **Kontaktdaten enthalten** | Adressen, Telefonnummern, E-Mail-Kontakte, direkte Karriere-Webseiten |
+| ✅ **Ansprechpartner** | Viele Einträge enthalten konkrete Ansprechpartner (z. B. Personalverantwortliche) |
+| ✅ **Kein Suchen nötig** | Einfach die Liste durchgehen und direkt bewerben |
+| ✅ **Für Anwendungsentwickler** | Speziell für Fachinformatiker (Anwendungsentwicklung) und Quereinsteiger |
+| ✅ **Aktuell** | Stand: September 2026 – ca. **90 Unternehmen** |
+
+### 📊 Was die Liste enthält:
+
+- Firmenname
+- Adresse (vollständig oder Stadt)
+- Plattform (LinkedIn, Indeed, Andere)
+- Website (direkt zur Karriere-Seite)
+- Ansprechpartner (Name + E-Mail, falls vorhanden)
+- Telefonnummer
+- Kommentar (z. B. „Bietet explizit Praktika an“ oder „Initiativbewerbung möglich“)
+
+### 📥 Wie du die Liste nutzt:
+
+**Variante A – In der App verwenden:**
+1. Lade die JSON-Datei von GitHub herunter
+2. Öffne deinen Bewerbungstracker
+3. Trage die Firmen manuell ein (oder verwende später den geplanten Import)
+
+**Variante B – Direkt bewerben:**
+1. Lade die JSON-Datei herunter oder öffne sie auf GitHub
+2. Öffne die enthaltenen Links in deinem Browser
+3. Finde offene Stellen und bewirb dich direkt
+
+**Variante C – Inspirationsquelle:**
+- Nutze die Liste, um einen Überblick über den regionalen Arbeitsmarkt zu bekommen
+- Identifiziere Unternehmen, die regelmäßig Entwickler suchen
+
+### 🏢 Radios der Unternehmen
+
+Die Liste enthält Unternehmen aus verschiedenen Branchen und Größenordnungen:
+
+| Region | Anzahl (ungefähr) | Beispiele |
+|--------|-------------------|-----------|
+| **Düsseldorf & Umgebung** | ~40 | Deloitte, KPMG, CGI, adesso SE, CONET Group |
+| **Langenfeld, Haan, Erkrath** | ~25 | L&W CONSOLIDATION, Interflex, ITSM GmbH, CPA SoftwareConsult |
+| **Solingen, Wuppertal** | ~15 | TimoCom, Codecentric, IPKS GmbH, Zierhut IT |
+| **Köln, Neuss, Leverkusen** | ~10 | 360 Consulting, Lise GmbH, Open Digitalgruppe, Med 360° |
+
+> 💡 **Hinweis:** Die Liste enthält nur **öffentlich zugängliche Informationen** – keine persönlichen Bewerbungsdaten. Sie dient als **Inspiration und Startpunkt** für deine eigene Bewerbungsphase.
+
+---
+
+**Viel Erfolg bei deiner Bewerbungsphase! 🚀**
 
 
 **Sag mir Bescheid, wenn du  Hilfe bei einem Schritt brauchst!** 🚀
