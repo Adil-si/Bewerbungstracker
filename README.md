@@ -153,6 +153,7 @@ Im Repository findest du eine **fertig zusammengestellte Liste** von Unternehmen
 
 **📁 Datei:**  
 [`data/potenzielle_arbeitgeber.json`](https://github.com/Adil-si/Bewerbungstracker/blob/main/data/potenzielle_arbeitgeber.json)
+⚠️ Hinweis: Falls der Link nicht funktioniert, navigiere manuell im Repository zum Ordner data und klicke auf potenzielle_arbeitgeber.json.
 
 ### 🎯 Was die Liste bietet:
 
